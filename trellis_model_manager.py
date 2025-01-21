@@ -186,6 +186,9 @@ class TrellisModelManager:
 
             # Try to load from local path first
             model_path = folder_paths.get_full_path("classifiers", f"{model_name}.pth")
+            if model_path is None:
+                if os.path.exists(f"/stable-diffusion-cache/models/dinov2-large/{model_name}.pth"):
+                    model_path = f"/stable-diffusion-cache/models/dinov2-large/{model_name}.pth"
             
             if model_path is None:
                 print(f"Downloading {model_name} from torch hub...")

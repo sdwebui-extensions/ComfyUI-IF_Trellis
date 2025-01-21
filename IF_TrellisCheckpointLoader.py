@@ -145,7 +145,10 @@ class IF_TrellisCheckpointLoader:
             if model_path is None:
                 model_path = os.path.join(folder_paths.models_dir, "checkpoints", model_name)
                 if not os.path.exists(model_path):
-                    raise FileNotFoundError(f"Model not found: {model_path}")
+                    if os.path.exists("/stable-diffusion-cache/models/TRELLIS-image-large"):
+                        model_path = "/stable-diffusion-cache/models/TRELLIS-image-large"
+                    else:
+                        raise FileNotFoundError(f"Model not found: {model_path}")
 
             # 3) Create pipeline with the config
             pipeline = TrellisImageTo3DPipeline.from_pretrained(
