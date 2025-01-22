@@ -23,9 +23,9 @@ if parent_dir not in sys.path:
 
 # Add trellis package path
 trellis_path = os.path.join(current_dir, "trellis")
-if os.path.exists(trellis_path) and trellis_path not in sys.path:
-    sys.path.insert(0, trellis_path)
-    logger.info(f"Added trellis path to sys.path: {trellis_path}")
+# if os.path.exists(trellis_path) and trellis_path not in sys.path:
+#     sys.path.insert(0, trellis_path)
+#     logger.info(f"Added trellis path to sys.path: {trellis_path}")
 
 # Verify trellis package is importable
 try:
