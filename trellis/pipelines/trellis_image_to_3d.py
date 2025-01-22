@@ -8,7 +8,6 @@ from tqdm import tqdm
 from easydict import EasyDict as edict
 from torchvision import transforms
 from PIL import Image
-import rembg
 import gc
 from .base import Pipeline
 from . import samplers
@@ -124,6 +123,7 @@ class TrellisImageTo3DPipeline(Pipeline):
         Preprocess the input image.
         """
         # if has alpha channel, use it directly; otherwise, remove background
+        import rembg
         has_alpha = False
         if input.mode == 'RGBA':
             alpha = np.array(input)[:, :, 3]
