@@ -8,7 +8,6 @@
 
 import torch
 from .tables import *
-from kaolin.utils.testing import check_tensor
 
 __all__ = [
     'FlexiCubes'
@@ -49,6 +48,7 @@ class FlexiCubes:
 
     def __call__(self, voxelgrid_vertices, scalar_field, cube_idx, resolution, qef_reg_scale=1e-3,
                  weight_scale=0.99, beta=None, alpha=None, gamma_f=None, voxelgrid_colors=None, training=False):
+        from kaolin.utils.testing import check_tensor
         assert torch.is_tensor(voxelgrid_vertices) and \
             check_tensor(voxelgrid_vertices, (None, 3), throw=False), \
             "'voxelgrid_vertices' should be a tensor of shape (num_vertices, 3)"

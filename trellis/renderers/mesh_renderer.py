@@ -1,5 +1,4 @@
 import torch
-import nvdiffrast.torch as dr
 from easydict import EasyDict as edict
 from ..representations.mesh import MeshExtractResult
 import torch.nn.functional as F
@@ -48,6 +47,7 @@ class MeshRenderer:
             "far": None,
             "ssaa": 1
         })
+        import nvdiffrast.torch as dr
         self.rendering_options.update(rendering_options)
         self.glctx = dr.RasterizeCudaContext(device=device)
         self.device=device
@@ -76,6 +76,7 @@ class MeshRenderer:
                 normal_map (torch.Tensor): [3, H, W] rendered normal map image
                 mask (torch.Tensor): [H, W] rendered mask image
         """
+        import nvdiffrast.torch as dr
         resolution = self.rendering_options["resolution"]
         near = self.rendering_options["near"]
         far = self.rendering_options["far"]

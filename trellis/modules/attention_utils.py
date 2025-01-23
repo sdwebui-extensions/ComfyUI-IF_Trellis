@@ -3,7 +3,6 @@ import os
 from typing import Optional
 import torch
 import torch.nn.functional as F
-from sageattention import sageattn
 import math
 
 __all__ = ['SageAttention', 'sage_attention']
@@ -14,6 +13,7 @@ def enable_sage_attention():
     Enable SageAttention by replacing PyTorch's scaled_dot_product_attention
     with sageattn from the SageAttention library.
     """
+    from sageattention import sageattn
     F.scaled_dot_product_attention = sageattn
     return True
 

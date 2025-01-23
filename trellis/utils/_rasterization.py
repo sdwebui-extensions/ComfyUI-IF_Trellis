@@ -1,7 +1,5 @@
 import torch
 from typing import Union, List, Optional, Tuple, Dict
-import nvdiffrast.torch as dr
-import utils3d
 class RastContext:
     def __init__(self, backend='cuda'):
         self.backend = backend
@@ -26,6 +24,7 @@ def rasterize_triangle_faces(
     """
     assert vertices.ndim == 3
     assert faces.ndim == 2
+    import nvdiffrast.torch as dr
 
     # Handle vertices dimensions
     if vertices.shape[-1] == 2:

@@ -1,8 +1,6 @@
 import torch
 import numpy as np
-from plyfile import PlyData, PlyElement
 from .general_utils import inverse_sigmoid, strip_symmetric, build_scaling_rotation
-import utils3d
 
 
 class Gaussian:
@@ -123,6 +121,8 @@ class Gaussian:
         return l
         
     def save_ply(self, path, transform=[[1, 0, 0], [0, 0, -1], [0, 1, 0]]):
+        import utils3d
+        from plyfile import PlyData, PlyElement
         xyz = self.get_xyz.detach().cpu().numpy()
         normals = np.zeros_like(xyz)
         f_dc = self._features_dc.detach().transpose(1, 2).flatten(start_dim=1).contiguous().cpu().numpy()
@@ -146,6 +146,8 @@ class Gaussian:
         PlyData([el]).write(path)
 
     def load_ply(self, path, transform=[[1, 0, 0], [0, 0, -1], [0, 1, 0]]):
+        import utils3d
+        from plyfile import PlyData, PlyElement
         plydata = PlyData.read(path)
 
         xyz = np.stack((np.asarray(plydata.elements[0]["x"]),

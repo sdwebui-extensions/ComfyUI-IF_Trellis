@@ -10,9 +10,9 @@ import folder_paths
 from typing import List, Union, Tuple, Literal, Optional, Dict
 from easydict import EasyDict as edict
 import gc
-import comfy.model_management
-import trimesh
-import trimesh.exchange.export
+# import comfy.model_management
+# import trimesh
+# import trimesh.exchange.export
 
 from trellis.pipelines import TrellisImageTo3DPipeline
 from trellis.utils import render_utils, postprocessing_utils

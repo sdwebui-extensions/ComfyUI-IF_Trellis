@@ -3,15 +3,7 @@ import os
 from typing import *
 import numpy as np
 import torch
-import utils3d
-import nvdiffrast.torch as dr
 from tqdm import tqdm
-import trimesh
-import trimesh.visual
-import xatlas
-import pyvista as pv
-from pymeshfix import _meshfix
-import igraph
 import cv2
 from PIL import Image, ImageDraw
 from .random_utils import sphere_hammersley_sequence
@@ -46,6 +38,9 @@ def _fill_holes(
         verbose (bool): Whether to print progress.
     """
     # Construct cameras
+    import utils3d
+    from pymeshfix import _meshfix
+    import igraph
     yaws = []
     pitchs = []
     for i in range(num_views):
@@ -227,6 +222,7 @@ def postprocess_mesh(
         fill_holes_num_views (int): Number of views to rasterize the mesh.
         verbose (bool): Whether to print progress.
     """
+    import pyvista as pv
 
     if verbose:
         tqdm.write(f'Before postprocess: {vertices.shape[0]} vertices, {faces.shape[0]} faces')
@@ -266,6 +262,7 @@ def parametrize_mesh(vertices: np.array, faces: np.array):
         vertices (np.array): Vertices of the mesh. Shape (V, 3).
         faces (np.array): Faces of the mesh. Shape (F, 3).
     """
+    import xatlas
 
     vmapping, indices, uvs = xatlas.parametrize(vertices, faces)
 
@@ -308,6 +305,8 @@ def bake_texture(
         lambda_tv (float): Weight of total variation loss in optimization.
         verbose (bool): Whether to print progress.
     """
+    import nvdiffrast.torch as dr
+    import utils3d
     vertices = torch.tensor(vertices).cuda()
     faces = torch.tensor(faces.astype(np.int32)).cuda()
     uvs = torch.tensor(uvs).cuda()
@@ -441,10 +440,12 @@ def to_glb(
     wireframe_path: Optional[str] = None,
     debug: bool = False,
     verbose: bool = True,
-) -> trimesh.Trimesh:
+):
     """
     Convert a generated asset to a glb file with optional texture and wireframe saving.
     """
+    import trimesh
+    import trimesh.visual
     # Convert geometry to numpy
     vertices = mesh.vertices.cpu().numpy()
     faces = mesh.faces.cpu().numpy()

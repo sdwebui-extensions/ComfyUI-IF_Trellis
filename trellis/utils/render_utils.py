@@ -1,7 +1,6 @@
 import torch
 import numpy as np
 from tqdm import tqdm
-import utils3d
 from PIL import Image
 
 from ..renderers import OctreeRenderer, GaussianRenderer, MeshRenderer
@@ -11,6 +10,7 @@ from .random_utils import sphere_hammersley_sequence
 
 
 def yaw_pitch_r_fov_to_extrinsics_intrinsics(yaws, pitchs, rs, fovs):
+    import utils3d
     is_list = isinstance(yaws, list)
     if not is_list:
         yaws = [yaws]
