@@ -17,21 +17,6 @@ DEBUG = get_debug_mode()
 # Get available backends and import if active
 available_backends = get_available_backends()
 
-if BACKEND == "xformers" and available_backends['xformers']:
-    import xformers.ops as xops
-elif BACKEND == "flash_attn" and available_backends['flash_attn']:
-    import flash_attn
-elif BACKEND == "sage" and available_backends['sage']:
-    import torch.nn.functional as F
-    from sageattention import sageattn
-    F.scaled_dot_product_attention = sageattn
-elif BACKEND == "sdpa":
-    from torch.nn.functional import scaled_dot_product_attention as sdpa
-elif BACKEND == "naive":
-    from torch.nn.functional import scaled_dot_product_attention as naive
-else:
-    raise ValueError(f"Unknown attention module: {BACKEND}")
-
 
 __all__ = [
     'scaled_dot_product_attention',
@@ -90,6 +75,20 @@ def scaled_dot_product_attention(q: torch.Tensor, k: torch.Tensor, v: torch.Tens
     ...
 
 def scaled_dot_product_attention(*args, **kwargs):
+    if BACKEND == "xformers" and available_backends['xformers']:
+        import xformers.ops as xops
+    elif BACKEND == "flash_attn" and available_backends['flash_attn']:
+        import flash_attn
+    elif BACKEND == "sage" and available_backends['sage']:
+        import torch.nn.functional as F
+        from sageattention import sageattn
+        # F.scaled_dot_product_attention = sageattn
+    elif BACKEND == "sdpa":
+        from torch.nn.functional import scaled_dot_product_attention as sdpa
+    elif BACKEND == "naive":
+        from torch.nn.functional import scaled_dot_product_attention as naive
+    else:
+        raise ValueError(f"Unknown attention module: {BACKEND}")
     arg_names_dict = {
         1: ['qkv'],
         2: ['q', 'kv'],

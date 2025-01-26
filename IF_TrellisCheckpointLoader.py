@@ -3,7 +3,6 @@ import os
 import logging
 import torch
 import folder_paths
-from trellis_model_manager import TrellisModelManager
 from trellis.pipelines.trellis_image_to_3d import TrellisImageTo3DPipeline
 from trellis.backend_config import (
     set_attention_backend,

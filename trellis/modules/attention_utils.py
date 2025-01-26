@@ -14,7 +14,7 @@ def enable_sage_attention():
     with sageattn from the SageAttention library.
     """
     from sageattention import sageattn
-    F.scaled_dot_product_attention = sageattn
+    # F.scaled_dot_product_attention = sageattn
     return True
 
 def disable_sage_attention():
