@@ -2,12 +2,13 @@
 import os
 import logging
 import torch
+import huggingface_hub
 import folder_paths
 from trellis.pipelines.trellis_image_to_3d import TrellisImageTo3DPipeline
 from trellis.backend_config import (
     set_attention_backend,
     set_sparse_backend,
-    get_available_backends,     
+    get_available_backends,
     get_available_sparse_backends
 )
 from typing import Literal
@@ -147,7 +148,15 @@ class IF_TrellisCheckpointLoader:
                     if os.path.exists("/stable-diffusion-cache/models/TRELLIS-image-large"):
                         model_path = "/stable-diffusion-cache/models/TRELLIS-image-large"
                     else:
-                        raise FileNotFoundError(f"Model not found: {model_path}")
+                        repo_id = "JeffreyXiang"
+                        try:
+                            huggingface_hub.snapshot_download(
+                                f"{repo_id}/{model_name}",
+                                repo_type="model",
+                                local_dir=model_path
+                            )
+                        except Exception as e:
+                            raise RuntimeError(f"Failed to download {repo_id}/{model_name} to: {model_path}, {e}")
 
             # 3) Create pipeline with the config
             pipeline = TrellisImageTo3DPipeline.from_pretrained(
