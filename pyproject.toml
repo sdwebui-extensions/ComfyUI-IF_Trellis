@@ -50,7 +50,7 @@ dependencies = [
 ]
 
 [project.urls]
-Repository = "https://github.com/if-ai/ComfyUI-IF_Trellis.git"
+Repository = "https://github.com/if-ai/ComfyUI-IF_Trellis"
 #  Used by Comfy Registry https://comfyregistry.org
 
 [tool.comfy]
