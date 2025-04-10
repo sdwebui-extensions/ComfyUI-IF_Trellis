@@ -1,8 +1,8 @@
 [project]
 name = "comfyui-if_trellis"
 description = "ComfyUI IF Trellis creates a 3d mesh from a single view or multi angle pictures"
-version = "0.2.3"
-license = { file = "LICENSE.txt" } 
+version = "0.2.5"
+license = { file = "MIT License" }
 dependencies = [
     "pillow",
     "imageio",
@@ -50,10 +50,10 @@ dependencies = [
 ]
 
 [project.urls]
-Repository = "https://github.com/if-ai/ComfyUI-IF_Trellis.git"
+Repository = "https://github.com/if-ai/ComfyUI-IF_Trellis"
 #  Used by Comfy Registry https://comfyregistry.org
 
 [tool.comfy]
 PublisherId = "impactframes"
-DisplayName = "ComfyUI-IF_Trellis"
+DisplayName = "IF_Trellis"
 Icon = "https://impactframes.ai/System/Icons/48x48/if.png"
